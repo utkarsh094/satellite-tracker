@@ -1,11 +1,11 @@
 # TLE cache (auto-generated, re-downloaded on demand)
 backend/tle/cache/
-
 # Python
 __pycache__/
 *.pyc
 venv/
 .venv/
-
 # OS
 .DS_Store
+#vsCode setting for jason(setting.json)
+.vsCode
