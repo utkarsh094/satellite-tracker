@@ -3,10 +3,11 @@ This handles fetching orbital element (GP/TLE) data from Celestrak, with local c
 
 As CelesTrak does not update data more often than every 2 hours, and the underlying source data itself only refreshes ~3 times/day. This module enforces a configurable minimum refresh interval (see config.py) and serves cached data in between.
 """
-
+  
 import json
 import os
 import sys
+from typing import Optional
 from datetime import datetime, timezone
 import requests
 
@@ -30,7 +31,7 @@ def _is_cache_stale(path: str) -> bool:
     return age_hours >= config.TLE_REFRESH_INTERVAL_HOURS
 
 
-def fetch_group(group: str = None, force: bool = False) -> list:
+def fetch_group(group: Optional[str] = None, force: bool = False) -> list:
     """It will return orbital element data (list of satellite dicts) for a Celestrak group, e.g. 'stations', 'active', 'starlink'.
        It will use the local cache unless it's old (or force=True), in which case it will re-downloads the data from Celestrak and updates the cache.
     """
