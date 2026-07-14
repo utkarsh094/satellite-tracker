@@ -1,0 +1,4 @@
+skyfield>=1.49
+requests>=2.31
+flask>=3.0
+flask-cors>=4.0
