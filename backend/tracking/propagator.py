@@ -11,12 +11,11 @@ from typing import Optional
 from skyfield.api import EarthSatellite, load, wgs84
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config  # noqa: E402
+import config 
 
 
 def load_satellite(norad_cat_id: int, group: Optional[str] = None):
     """ A Skyfield EarthSatellite object for one satellite, identified by its NORAD catalog number, from the locally cached TLE/OMM data for a given group (defaults to config.DEFAULT_GROUP).
-
     It will returns None if that satellite isn't found in the cached group."""
     group = group or config.DEFAULT_GROUP
     cache_path = os.path.join(
@@ -52,7 +51,7 @@ def get_current_position(satellite: EarthSatellite) -> dict:
 if __name__ == "__main__":
     iss = load_satellite(norad_cat_id=25544)
     if iss is None:
-        print("Satellite not found in cache. Did Day 1's fetcher run first?")
+        print("Satellite not found in cache. Did fetcher run first?")
     else:
         position = get_current_position(iss)
         print(f"Satellite: {position['name']}")
