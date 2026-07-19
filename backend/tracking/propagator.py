@@ -49,7 +49,7 @@ def get_current_position(satellite: EarthSatellite) -> dict:
         "altitude_km": wgs84.height_of(geocentric).km,}
 
 if __name__ == "__main__":
-    iss = load_satellite(norad_cat_id=25544)
+    iss = load_satellite(norad_cat_id=48274)
     if iss is None:
         print("Satellite not found in cache. Did fetcher run first?")
     else:
