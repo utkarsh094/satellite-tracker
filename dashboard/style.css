@@ -1,0 +1,76 @@
+body {background-color: #c0c0c0;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  margin: 0;
+  padding: 20px;}
+
+table.page {width: 700px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 2px solid #000080;
+  border-collapse: collapse;}
+
+.header {background-color: #000080;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 15px;
+  font-family: "Times New Roman", serif;}
+
+.subheader {font-size: 11px;
+  font-weight: normal;
+  font-family: Verdana, Arial, sans-serif;
+  color: #c0c0ff;}
+
+.content {padding: 15px;}
+
+table.panel { border: 1px solid #808080;
+  border-collapse: collapse;}
+
+.panel-label {font-weight: bold;
+  padding: 6px;
+  background-color: #e0e0e0;
+  border: 1px solid #808080;
+  width: 130px;}
+
+.panel td {border: 1px solid #808080;}
+
+.panel-title td {background-color: #000080;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 5px 8px;
+  text-align: left;}
+
+.label {background-color: #e0e0e0;
+  font-weight: bold;
+  padding: 5px 8px;
+  width: 150px;}
+
+.value {padding: 5px 8px;
+  font-family: "Courier New", monospace;
+  color: #000080;}
+
+select {font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  padding: 2px;}
+
+.status-offline {color: #ff0000;
+  font-weight: bold;
+  margin-left: 10px;}
+
+.status-online {color: #008000;
+  font-weight: bold;
+  margin-left: 10px;}
+
+.error-box {border: 1px solid #ff0000;
+  background-color: #ffe0e0;
+  color: #800000;
+  padding: 8px;
+  font-weight: bold;}
+
+.footer {background-color: #e0e0e0;
+  border-top: 1px solid #808080;
+  padding: 6px 15px;
+  font-size: 10px;
+  color: #444444;
+  text-align: center;}

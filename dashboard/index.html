@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Satellite Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<table class="page">
+<tr>
+<td class="header">
+  SATELLITE TRACKER
+  <br>
+  <span class="subheader">real-time orbital position dashboard</span>
+</td>
+</tr>
+<tr>
+<td class="content">
+
+  <table class="panel" width="100%">
+  <tr>
+    <td class="panel-label">Select Satellite:</td>
+    <td>
+      <select id="satelliteSelect">
+        <option value="">-- loading satellites --</option>
+      </select>
+      <span id="connectionStatus" class="status-offline">[ offline ]</span>
+    </td>
+  </tr>
+  </table>
+  <br>
+  <table class="panel" width="100%" cellpadding="4" cellspacing="0">
+    <tr class="panel-title"><td colspan="2">TRACKING DATA</td></tr>
+    <tr><td class="label">NORAD ID</td><td class="value" id="val_norad">--</td></tr>
+    <tr><td class="label">Name</td><td class="value" id="val_name">--</td></tr>
+    <tr><td class="label">Local Time</td><td class="value" id="val_localtime">--</td></tr>
+    <tr><td class="label">UTC</td><td class="value" id="val_utc">--</td></tr>
+    <tr><td class="label">Latitude</td><td class="value" id="val_lat">--</td></tr>
+    <tr><td class="label">Longitude</td><td class="value" id="val_lon">--</td></tr>
+    <tr><td class="label">Altitude</td><td class="value" id="val_alt">--</td></tr>
+    <tr><td class="label">Speed</td><td class="value" id="val_speed">--</td></tr>
+    <tr><td class="label">Azimuth</td><td class="value" id="val_az">--</td></tr>
+    <tr><td class="label">Elevation</td><td class="value" id="val_el">--</td></tr>
+    <tr><td class="label">Visible Now</td><td class="value" id="val_visible">--</td></tr>
+  </table>
+  <br>
+  <div id="errorBox" class="error-box" style="display:none;"></div>
+</td>
+</tr>
+<tr>
+<td class="footer">
+  Data source: CelesTrak &nbsp;|&nbsp; Propagation: SGP4 (Skyfield) &nbsp;|&nbsp; Updates every 2 seconds
+</td>
+</tr>
+</table>
+<script src="script.js"></script>
+</body>
+</html>
