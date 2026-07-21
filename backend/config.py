@@ -24,7 +24,6 @@ TLE_REFRESH_INTERVAL_HOURS = 6
 
 # Where cached TLE data is stored locally (relative to backend/ folder)
 TLE_CACHE_DIR = "tle/cache"
-
 # API server settings
 API_HOST = "0.0.0.0"
-API_PORT = 8000
+API_PORT = 7789

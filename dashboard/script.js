@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://localhost:8000";
-const REFRESH_INTERVAL_MS = 800;
+const API_BASE_URL = "http://localhost:7789";
+const REFRESH_INTERVAL_MS = 1000;
 
 let refreshTimer = null;
 async function loadSatelliteList() {
