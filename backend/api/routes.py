@@ -4,7 +4,7 @@ from tracking.propagator import load_satellite
 from flask import Blueprint, jsonify, request
 from tracking.topocentric import get_tracking_data
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config  # noqa:
+import config  
 from tle.fetcher import fetch_group 
  
 api = Blueprint("api", __name__)
@@ -34,4 +34,13 @@ def track():
     if satellite is None:
         return jsonify({"error": f"Satellite {norad_id} not found in group '{group}'"}), 404
     data = get_tracking_data(satellite)
+    raw_satellites = fetch_group(group)
+    raw_fields = next(
+        (s for s in raw_satellites if int(s["NORAD_CAT_ID"]) == norad_id), None)
+    if raw_fields:
+        data["orbitalElements"] = {"Inclination [deg]": raw_fields["INCLINATION"],
+            "Eccentricity": raw_fields["ECCENTRICITY"],
+            "RAAN [deg]": raw_fields["RA_OF_ASC_NODE"],
+            "Mean Motion [rev/day]": raw_fields["MEAN_MOTION"],
+            "Epoch [UTC]": raw_fields["EPOCH"],}
     return jsonify(data)

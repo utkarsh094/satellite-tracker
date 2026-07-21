@@ -1,5 +1,5 @@
 const API_BASE_URL = "http://localhost:8000";
-const REFRESH_INTERVAL_MS = 2000;
+const REFRESH_INTERVAL_MS = 800;
 
 let refreshTimer = null;
 async function loadSatelliteList() {
@@ -35,10 +35,15 @@ async function updateTrackingData() {
     const response = await fetch(`${API_BASE_URL}/track?sat=${noradId}`);
     const data = await response.json();
     if (!response.ok) {
-      showError(data.error || "Unknown error from backend.");
+      showError(data.error || "404 satellite not found");
       return;}
     hideError();
-    renderData(data);} catch (err) {
+    renderData(data);
+    if (data.orbitalElements) {
+      renderOrbitalElements(data.orbitalElements);(
+        data.orbitalElements["Inclination [deg]"],
+        data.orbitalElements["Eccentricity"]);}} 
+        catch (err) {
     showError(`Lost connection to backend: ${err.message}`);}}
 
 function renderData(data) {
@@ -56,6 +61,12 @@ function renderData(data) {
   const visEl = document.getElementById("val_visible");
   visEl.textContent = visible ? "YES" : "NO (below horizon)";
   visEl.style.color = visible ? "#008000" : "#800000";}
+
+function renderOrbitalElements(oe) {set("oe_incl", `${oe["Inclination [deg]"].toFixed(2)}\u00B0`);
+  set("oe_ecc", oe["Eccentricity"].toFixed(4));
+  set("oe_raan", `${oe["RAAN [deg]"].toFixed(2)}\u00B0`);
+  set("oe_mm", `${oe["Mean Motion [rev/day]"].toFixed(2)} rev/day`);
+  set("oe_epoch", oe["Epoch [UTC]"]);} 
 
 function set(id, value) {
   document.getElementById(id).textContent = value;}
