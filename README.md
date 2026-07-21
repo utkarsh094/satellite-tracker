@@ -7,7 +7,7 @@ A self-hosted dashboard that tracks any active satellite in real time — live p
 ## Features
 
 - Live tracking for any satellite in a selectable Celestrak group (ISS, Tiangong, and more)
-- Real-time latitude/longitude/altitude/speed, updated every 2 seconds
+- Real-time latitude/longitude/altitude/speed, updated every 1 seconds
 - Azimuth/Elevation relative to a fixed ground location
 - Raw orbital elements (inclination, eccentricity, RAAN, mean motion, epoch)
 - Automatic TLE caching and refresh, respecting Celestrak's fair-use limits
