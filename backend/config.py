@@ -5,9 +5,9 @@ Edit OBSERVER_* to your actual ground station location before running anything.
 
 # Observer location (used for Az/El calculations)
 # one defauld location is already set init.
-OBSERVER_LAT_DEG = 21.1458
-OBSERVER_LON_DEG = 79.0882
-OBSERVER_ELEVATION_M = 310  # this is in meters; above sea level (approx)
+OBSERVER_LAT_DEG = 19.1335
+OBSERVER_LON_DEG = 72.9092
+OBSERVER_ELEVATION_M = 51  # this is in meters; above sea level (approx)
 
 # Celestrak site TLE fetch settings 
 CELESTRAK_BASE_URL = "https://celestrak.org/NORAD/elements/gp.php"
