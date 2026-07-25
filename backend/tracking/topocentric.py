@@ -2,10 +2,11 @@ import math
 import os
 import sys
 from datetime import timedelta, timezone
-from skyfield.api import load, wgs84
+from skyfield.api import wgs84
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config  
+from tracking.timescale import ts
 from tracking.propagator import load_satellite  
 
 # Fixed observer location, built it once from config.py's coordinates which are alredy coded in it.
@@ -18,7 +19,6 @@ OBSERVER = wgs84.latlon(
 LOCAL_UTC_OFFSET = timedelta(hours=5, minutes=30)
 
 def get_tracking_data(satellite) -> dict:
-    ts = load.timescale()
     t = ts.now()
 
     # (Az/El) and equatorial (RA/Dec) coordinate systems.

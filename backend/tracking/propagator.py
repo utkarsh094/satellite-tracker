@@ -8,9 +8,10 @@ import json
 import os
 import sys
 from typing import Optional
-from skyfield.api import EarthSatellite, load, wgs84
+from skyfield.api import EarthSatellite, wgs84
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from tracking.timescale import ts
 import config 
 
 
@@ -27,7 +28,6 @@ def load_satellite(norad_cat_id: int, group: Optional[str] = None):
             f"No cached data for group '{group}'. Run tle/fetcher.py first.")
     with open(cache_path, "r") as f:
         cached = json.load(f)
-    ts = load.timescale()
     for fields in cached["satellites"]:
         if int(fields["NORAD_CAT_ID"]) == norad_cat_id:
             return EarthSatellite.from_omm(ts, fields)
@@ -36,7 +36,6 @@ def load_satellite(norad_cat_id: int, group: Optional[str] = None):
 def get_current_position(satellite: EarthSatellite) -> dict:
     """A Skyfield EarthSatellite,it will calculate its position RIGHT NOW/ in current time and will return a plain text like: subpoint latitude/longitude/altitude, plus the epoch of the orbital data being used (so we know how "old/fresh(new)" this is).
     """
-    ts = load.timescale()
     t = ts.now()
     geocentric = satellite.at(t)
     subpoint = wgs84.subpoint_of(geocentric)
