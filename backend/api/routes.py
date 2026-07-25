@@ -1,12 +1,13 @@
 import os
 import sys
+from math import degrees, pi
 from tracking.propagator import load_satellite 
 from flask import Blueprint, jsonify, request
 from tracking.topocentric import get_tracking_data
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config  
 from tle.fetcher import fetch_group 
- 
+  
 api = Blueprint("api", __name__)
 @api.route("/satellites", methods=["GET"])
 def satellites():
@@ -34,13 +35,12 @@ def track():
     if satellite is None:
         return jsonify({"error": f"Satellite {norad_id} not found in group '{group}'"}), 404
     data = get_tracking_data(satellite)
-    raw_satellites = fetch_group(group)
-    raw_fields = next(
-        (s for s in raw_satellites if int(s["NORAD_CAT_ID"]) == norad_id), None)
-    if raw_fields:
-        data["orbitalElements"] = {"Inclination [deg]": raw_fields["INCLINATION"],
-            "Eccentricity": raw_fields["ECCENTRICITY"],
-            "RAAN [deg]": raw_fields["RA_OF_ASC_NODE"],
-            "Mean Motion [rev/day]": raw_fields["MEAN_MOTION"],
-            "Epoch [UTC]": raw_fields["EPOCH"],}
+    m = satellite.model
+    data["orbitalElements"] = {
+        "Inclination [deg]": round(degrees(m.inclo), 4),
+        "Eccentricity": round(m.ecco, 8),
+        "RAAN [deg]": round(degrees(m.nodeo), 4),
+        "Mean Motion [rev/day]": round(m.no_kozai * 720 / pi, 8),
+        "Epoch [UTC]": satellite.epoch.utc_datetime().strftime("%Y-%m-%dT%H:%M:%S.%f"),
+    }
     return jsonify(data)
