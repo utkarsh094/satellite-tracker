@@ -9,9 +9,9 @@ import os
 import sys
 from typing import Optional
 from skyfield.api import EarthSatellite, wgs84
-from tracking.timescale import ts
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from tracking.timescale import ts
 import config 
 
 

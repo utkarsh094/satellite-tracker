@@ -3,10 +3,10 @@ import os
 import sys
 from datetime import timedelta, timezone
 from skyfield.api import wgs84
-from tracking.timescale import ts
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config  
+from tracking.timescale import ts
 from tracking.propagator import load_satellite  
 
 # Fixed observer location, built it once from config.py's coordinates which are alredy coded in it.
