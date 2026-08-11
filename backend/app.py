@@ -14,4 +14,4 @@ def index():
         "message": "Satellite tracker API is running.",
         "endpoints": ["/satellites", "/track?sat=<norad_id>"],}
 if __name__ == "__main__":
-    app.run(host=config.API_HOST, port=config.API_PORT, debug=True)
+    app.run(host=config.API_HOST, port=config.API_PORT, debug=False)
