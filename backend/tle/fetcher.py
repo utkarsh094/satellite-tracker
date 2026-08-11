@@ -1,6 +1,5 @@
 """
 This handles fetching orbital element (GP/TLE) data from Celestrak, with local caching so we never hit their servers more often than necessary.
-
 As CelesTrak does not update data more often than every 2 hours, and the underlying source data itself only refreshes ~3 times/day. This module enforces a configurable minimum refresh interval (see config.py) and serves cached data in between.
 """
   
@@ -40,11 +39,26 @@ def fetch_group(group: Optional[str] = None, force: bool = False) -> list:
     if force or _is_cache_stale(path):
         print(f"[fetcher] Fetching fresh TLE data for group '{group}' from Celestrak...")
         url = f"{config.CELESTRAK_BASE_URL}?GROUP={group}&FORMAT=json"
-        response = requests.get(url, timeout=15)
-        response.raise_for_status()
-        data = response.json()
+        try:
+            response = requests.get(url, timeout=15)
+            response.raise_for_status()
+            data = response.json()
+        except requests.exceptions.Timeout:
+            print(f"[fetcher] Celestrak request timed out for group '{group}'.")
+            return _fall_back_to_cache_or_raise(path, group, "Celestrak request timed out")
+        except requests.exceptions.ConnectionError:
+            print(f"[fetcher] Could not connect to Celestrak for group '{group}'.")
+            return _fall_back_to_cache_or_raise(path, group, "Could not connect to Celestrak")
+        except requests.exceptions.HTTPError as e:
+            print(f"[fetcher] Celestrak returned an error for group '{group}': {e}")
+            return _fall_back_to_cache_or_raise(path, group, f"Celestrak HTTP error: {e}")
+        except ValueError:
+            # response.json() failed to parse - Celestrak returned non-JSON
+            print(f"[fetcher] Celestrak response for group '{group}' was not valid JSON.")
+            return _fall_back_to_cache_or_raise(path, group, "Invalid JSON from Celestrak")
         if not data:
-            raise ValueError(f"CelesTrak returned no data for group '{group}'. Check the group name.")
+            print(f"[fetcher] Celestrak returned no data for group '{group}'.")
+            return _fall_back_to_cache_or_raise(path, group, "Empty response from Celestrak")
         cached = {
             "group": group,
             "fetched_at": datetime.now(timezone.utc).isoformat(),
@@ -57,6 +71,22 @@ def fetch_group(group: Optional[str] = None, force: bool = False) -> list:
     with open(path, "r") as f:
         cached = json.load(f)
     return cached["satellites"]
+def _fall_back_to_cache_or_raise(path: str, group: str, reason: str) -> list:
+    """
+    If Celestrak can't be reached but we have OLD cached data sitting
+    around, serve that instead of crashing the whole API. Only raise an error if
+    there's truly nothing to fall back on.
+    """
+    if os.path.exists(path):
+        print(f"[fetcher] Falling back to stale cached data for group '{group}' ({reason}).")
+        with open(path, "r") as f:
+            cached = json.load(f)
+        return cached["satellites"]
+ 
+    raise RuntimeError(
+        f"Could not fetch TLE data for group '{group}' ({reason}), "
+        f"and no cached data exists to fall back on."
+    )
 
 if __name__ == "__main__":
     satellites = fetch_group()
