@@ -2,7 +2,7 @@
 
 A self-hosted dashboard that tracks any active satellite in real time — live position, orbital elements, and pointing angles — computed locally using SGP4 orbital propagation.
 
-![Dashboard screenshot](docs/screenshots/dashboardshot.png)
+![Dashboard screenshot](backend/screenshots/dashboardshot.png)
 
 ## Features
 
