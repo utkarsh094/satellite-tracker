@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:7789";
+const API_BASE_URL = "https://vintageviolet.pythonanywhere.com";
 const REFRESH_INTERVAL_MS = 1000;
 
 let refreshTimer = null;
