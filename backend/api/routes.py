@@ -37,10 +37,9 @@ def track():
     data = get_tracking_data(satellite)
     m = satellite.model
     data["orbitalElements"] = {
-        "Inclination [deg]": round(degrees(m.inclo), 4),
-        "Eccentricity": round(m.ecco, 8),
-        "RAAN [deg]": round(degrees(m.nodeo), 4),
-        "Mean Motion [rev/day]": round(m.no_kozai * 720 / pi, 8),
-        "Epoch [UTC]": satellite.epoch.utc_datetime().strftime("%Y-%m-%dT%H:%M:%S.%f"),
-    }
+    "Inclination [deg]": round(float(degrees(m.inclo)), 4),
+    "Eccentricity": round(float(m.ecco), 8),
+    "RAAN [deg]": round(float(degrees(m.nodeo)), 4),
+    "Mean Motion [rev/day]": round(float(m.no_kozai) * 720 / pi, 8),
+    "Epoch [UTC]": satellite.epoch.utc_datetime().strftime("%Y-%m-%dT%H:%M:%S.%f"),}
     return jsonify(data)
