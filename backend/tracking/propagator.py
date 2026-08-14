@@ -45,7 +45,7 @@ def get_current_position(satellite: EarthSatellite) -> dict:
         "epoch_utc": satellite.epoch.utc_iso(),
         "latitude_deg": subpoint.latitude.degrees,
         "longitude_deg": subpoint.longitude.degrees,
-        "altitude_km": wgs84.height_of(geocentric).km,}
+        "altitude_km": float(wgs84.height_of(geocentric).km),}
 
 if __name__ == "__main__":
     iss = load_satellite(norad_cat_id=48274)
