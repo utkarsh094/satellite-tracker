@@ -40,7 +40,8 @@ def fetch_group(group: Optional[str] = None, force: bool = False) -> list:
         print(f"[fetcher] Fetching fresh TLE data for group '{group}' from Celestrak...")
         url = f"{config.CELESTRAK_BASE_URL}?GROUP={group}&FORMAT=json"
         try:
-            response = requests.get(url, timeout= 45)
+            headers = {"User-Agent": "Mozilla/5.0 (satellite-tracker-project)"}
+            response = requests.get(url, headers=headers, timeout=45)
             response.raise_for_status()
             data = response.json()
         except requests.exceptions.Timeout:
