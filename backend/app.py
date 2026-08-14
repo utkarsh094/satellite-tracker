@@ -4,7 +4,9 @@ import config
 from api.routes import api
 
 app = Flask(__name__)
-CORS(app)
+import os
+ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
+CORS(app, origins=[ALLOWED_ORIGIN])
 app.register_blueprint(api)
 
 @app.route("/")
