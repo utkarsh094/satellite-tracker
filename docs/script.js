@@ -6,7 +6,7 @@ async function loadSatelliteList() {
   const select = document.getElementById("satelliteSelect");
   const statusEl = document.getElementById("connectionStatus");
   try {
-    const response = await fetch(`${BASE_URL}/satellites`);
+    const response = await fetch(`${API_BASE_URL}/satellites`);
     if (!response.ok) throw new Error(`Server returned ${response.status}`);
     const satellites = await response.json();
     select.innerHTML = "";
