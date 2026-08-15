@@ -13,7 +13,7 @@ OBSERVER_LON_DEG = float(os.environ.get("OBSERVER_LON_DEG"))
 OBSERVER_ELEVATION_M = float(os.environ.get("OBSERVER_ELEVATION_M"))  # this is in meters; above sea level (approx)
 
 # Celestrak site TLE fetch settings 
-CELESTRAK_BASE_URL = "https://celestrak.org/NORAD/elements/gp.php"
+CELESTRAK_ = "https://celestrak.org/NORAD/elements/gp.php"
 
 # Which satellite group to fetch by default for the dashboard picker.
 # See https://celestrak.org/NORAD/elements/ for all available group names.
