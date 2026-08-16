@@ -53,7 +53,34 @@ The backend fetches orbital element sets (TLEs) from Celestrak and caches them l
 
 ## Hosting & deployment
 
+<<<<<<< HEAD
 The backend and frontend are deployed independently, on separate platforms, and communicate purely over a REST API:
+=======
+```
+satellite-tracker/
+├── backend/
+│   ├── app.py                  # Flask server entry point
+│   ├── config.py               # Observer location + settings
+│   ├── requirements.txt
+│   ├── tle/
+│   │   └── fetcher.py          # Fetches & caches TLE data from Celestrak
+│   ├── tracking/
+│   │   ├── propagator.py       # SGP4 propagation (geocentric position)
+│   │   └── topocentric.py      # Az/El, speed, and other observer-relative data
+│   └── api/
+│       └── routes.py           # /satellites and /track endpoints
+│
+├── docs/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│   └── screenshots/             # Put dashboard screenshots here (see below)
+│
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+>>>>>>> fe069f510c25d49f2be892c045746e92cd86df4b
 
 - **Backend** runs on PythonAnywhere, chosen specifically because its free tier stays continuously running (**no cold-start sleep**), which matters for a dashboard people might check at any time of day.
 - **Frontend** is static and deploys automatically from this repo via GitHub Pages on every push to `main`.
@@ -62,9 +89,65 @@ The backend and frontend are deployed independently, on separate platforms, and 
 
 ## A few technical details worth knowing
 
+<<<<<<< HEAD
 - **Why not just call a live tracking API?** The orbital math (SGP4 propagation) is done directly in this project rather than proxying another tracking service — the backend only depends on Celestrak for the raw orbital elements themselves, everything else (position, Az/El, orbit shape) is computed locally.
 - **Type safety across the Python↔JSON boundary:** Skyfield's underlying numeric types (NumPy floats/booleans) aren't natively JSON-serializable, so every value returned by the API is explicitly cast to a native Python type before being sent to the frontend.
 - **Resilience:** if Celestrak is temporarily unreachable, the backend falls back to the most recent successfully cached data rather than returning an error, so a brief upstream outage doesn't take the dashboard down with it.
+=======
+### 1. Clone the repository
+```bash
+git clone https://github.com/utkarsh094/satellite-tracker
+cd satellite-tracker
+```
+
+### 2. Set up a virtual environment
+```bash
+python3 -m venv venv
+source venv/bin/activate       # Windows: venv\Scripts\activate
+```
+
+### 3. Install dependencies
+```bash
+pip install -r backend/requirements.txt
+```
+
+### 4. Set your ground location
+Open `backend/config.py` and update these values to your own coordinates:
+```python
+OBSERVER_LAT_DEG =xx.xxxx
+OBSERVER_LON_DEG = xx.xxxx
+OBSERVER_ELEVATION_M = 310
+```
+
+### 5. Run the backend
+```bash
+cd backend
+python app.py
+```
+This starts the API at `http://localhost:8000`. Leave this terminal running.
+
+### 6. Run the dashboard
+In a **new** terminal:
+```bash
+cd dashboard
+python -m http.server 5500
+```
+Then open **http://localhost:5500** in your browser.
+
+You should see the dashboard load, the satellite dropdown populate automatically, and live tracking data begin updating every couple of seconds.
+
+## Adding your own screenshot
+
+1. Run the project locally (steps above) and get the dashboard looking the way you want, with a satellite selected and data populated.
+2. Take a screenshot and save it as `docs/screenshots/dashboard.png` (create the `docs/screenshots/` folder if it doesn't exist).
+3. Commit it like any other file:
+   ```bash
+   git add docs/screenshots/dashboard.png
+   git commit -m "Add dashboard screenshot"
+   git push
+   ```
+4. It'll automatically appear at the top of this README on GitHub, since the image is already referenced above.
+>>>>>>> fe069f510c25d49f2be892c045746e92cd86df4b
 
 ## API reference
 
@@ -105,5 +188,10 @@ This project has already benefited from real external contributions — caught b
 
 ## Acknowledgments
 
+<<<<<<< HEAD
 - Orbital data from [Celestrak](https://celestrak.org)
 - Orbital propagation via [Skyfield](https://rhodesmill.org/skyfield/)
+=======
+- Orbital data provided by [Celestrak](https://celestrak.org)
+- Orbital propagation powered by [Skyfield](https://rhodesmill.org/skyfield/)
+>>>>>>> fe069f510c25d49f2be892c045746e92cd86df4b
