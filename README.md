@@ -56,12 +56,10 @@ satellite-tracker/
 │   └── api/
 │       └── routes.py           # /satellites and /track endpoints
 │
-├── dashboard/
+├── docs/
 │   ├── index.html
 │   ├── style.css
 │   └── script.js
-│
-├── docs/
 │   └── screenshots/             # Put dashboard screenshots here (see below)
 │
 ├── requirements.txt
@@ -95,8 +93,8 @@ pip install -r backend/requirements.txt
 ### 4. Set your ground location
 Open `backend/config.py` and update these values to your own coordinates:
 ```python
-OBSERVER_LAT_DEG = 21.1458
-OBSERVER_LON_DEG = 79.0882
+OBSERVER_LAT_DEG =xx.xxxx
+OBSERVER_LON_DEG = xx.xxxx
 OBSERVER_ELEVATION_M = 310
 ```
 
