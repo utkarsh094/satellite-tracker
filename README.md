@@ -188,10 +188,5 @@ This project has already benefited from real external contributions — caught b
 
 ## Acknowledgments
 
-<<<<<<< HEAD
 - Orbital data from [Celestrak](https://celestrak.org)
 - Orbital propagation via [Skyfield](https://rhodesmill.org/skyfield/)
-=======
-- Orbital data provided by [Celestrak](https://celestrak.org)
-- Orbital propagation powered by [Skyfield](https://rhodesmill.org/skyfield/)
->>>>>>> fe069f510c25d49f2be892c045746e92cd86df4b
